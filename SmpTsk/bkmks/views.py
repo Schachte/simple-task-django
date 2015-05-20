@@ -1,8 +1,8 @@
-from __future__ import absolute_import 	
+from __future__ import absolute_import
 from django.http import HttpResponse, Http404
 from django.contrib.auth.models import User
 from django.template import RequestContext
-from django.views import generic 
+from django.views import generic
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -25,14 +25,14 @@ from django.contrib.auth.models import User
 def deleter(request,username, id):
 
 	if username == request.user.username:
-		print 'first if'
+
 		user = User.objects.get(username=username)
-		print 'user assignment'
-	   	ti = TaskItem.objects.get(pk = id)
-	   	print 'ti assignment'
-	   	ti.delete()
-	   	print 'ti delete'
-	   	return redirect("/user/%s/overview" %(request.user.username))
+
+		ti = TaskItem.objects.get(pk = id)
+
+		ti.delete()
+
+		return redirect("/user/%s/overview" %(request.user.username))
 	return HttpResponse('not deleted')
 
 
@@ -55,10 +55,10 @@ def profile_page(request, username):
 			taskitems = request.user.taskitem_set.all()
 			taskitems2 = request.user.taskitem_set.all().order_by('-created_date')[:3]
 
- 			
+
 			if request.method == 'POST':
 				form = TaskItemForm(request.POST)
- 
+
 				# Have we been provided with a valid form?
 				if form.is_valid():
 					# Save the new category to the database.
@@ -68,9 +68,9 @@ def profile_page(request, username):
 					task.usern = request.user
 					task.save()
 					return redirect("/user/%s/submitted" %(request.user.username))
- 
+
 			form = TaskItemForm()
- 
+
 			return render_to_response('profile.html', {'form':form, 'tasks': taskitems, 'tasks2': taskitems2, 'time':datetime.now(),}, context)
 		else:
 			return render_to_response('login.html', {}, context)
@@ -105,7 +105,7 @@ def user_login(request):
 
 		else:
 			# Bad login details were provided. So we can't log the user in.
-			print "Invalid login details: {0}, {1}".format(username, password)
+			#print "Invalid login details: {0}, {1}".format(username, password)
 			return HttpResponse("Invalid login details supplied.")
 
 	# The request is not a HTTP POST, so display the login form.
@@ -123,19 +123,19 @@ def profile_overview(request, username):
 			user = User.objects.get(username=username)
 			taskitems = request.user.taskitem_set.all()
 
- 			
+
 			if request.method == 'POST':
 				form = TaskItemForm(request.POST)
- 
+
 				# Have we been provided with a valid form?
 				if form.is_valid():
 					# Save the new category to the database.
 					task = form.save(commit=False)
 					task.usern = request.user
 					task.save()
- 
+
 			form = TaskItemForm()
- 
+
 			return render_to_response('viewtasks.html', {'form':form, 'tasks': taskitems,'time':datetime.now(),}, context)
 		else:
 			return render_to_response('login.html', {}, context)
@@ -150,10 +150,10 @@ def adder(request, username):
 		if request.user.is_authenticated():
 			user = User.objects.get(username=username)
 			taskitems = request.user.taskitem_set.all()
- 			
+
 			if request.method == 'POST':
 				form = AdvancedAddForm(request.POST)
- 
+
 				# Have we been provided with a valid form?
 				if form.is_valid():
 					# Save the new category to the database.
@@ -161,9 +161,9 @@ def adder(request, username):
 					task.usern = request.user
 					task.save()
 					return redirect("/user/%s/submitted" %(request.user.username))
- 
+
 			form = AdvancedAddForm()
- 
+
 			return render_to_response('addtask.html', {'form':form, 'tasks': taskitems, 'time':datetime.now(),}, context)
 		else:
 			return render_to_response('adk.html', {}, context)
@@ -188,7 +188,7 @@ def task_submission(request, username):
 
 
 # else:
-#         book = Book.objects.get(pk = book_id)       
+#         book = Book.objects.get(pk = book_id)
 #         book_form = BookForm(instance=book)
 
 #         return render_to_response('editbook.html',{ 'form':book_form }, context_instance=RequestContext(request))
@@ -196,43 +196,41 @@ def task_submission(request, username):
 
 def register(request):
 
-    # A boolean value for telling the template whether the registration was successful.
-    # Set to False initially. Code changes value to True when registration succeeds.
-    registered = False
+	# A boolean value for telling the template whether the registration was successful.
+	# Set to False initially. Code changes value to True when registration succeeds.
+	registered = False
 
-    # If it's a HTTP POST, we're interested in processing form data.
-    if request.method == 'POST':
-        # Attempt to grab information from the raw form information.
-        # Note that we make use of both UserForm and UserProfileForm.
-        user_form = UserForm(data=request.POST)
+	# If it's a HTTP POST, we're interested in processing form data.
+	if request.method == 'POST':
+		# Attempt to grab information from the raw form information.
+		# Note that we make use of both UserForm and UserProfileForm.
+		user_form = UserForm(data=request.POST)
 
-        # If the two forms are valid...
-        if user_form.is_valid():
-            # Save the user's form data to the database.
-            user = user_form.save()
+		# If the two forms are valid...
+		if user_form.is_valid():
+			# Save the user's form data to the database.
+			user = user_form.save()
 
-            # Now we hash the password with the set_password method.
-            # Once hashed, we can update the user object.
-            user.set_password(user.password)
-            user.save()
-
-
-            # Update our variable to tell the template registration was successful.
-            registered = True
-
-        # Invalid form or forms - mistakes or something else?
-        # Print problems to the terminal.
-        # They'll also be shown to the user.
-        else:
-            print user_form.errors, profile_form.errors
-
-    # Not a HTTP POST, so we render our form using two ModelForm instances.
-    # These forms will be blank, ready for user input.
-    else:
-        user_form = UserForm()
+			# Now we hash the password with the set_password method.
+			# Once hashed, we can update the user object.
+			user.set_password(user.password)
+			user.save()
 
 
-    # Render the template depending on the context.
-    return render(request,
-            'register.html',
-            {'user_form': user_form,'registered': registered} )
+			# Update our variable to tell the template registration was successful.
+			registered = True
+
+		# Invalid form or forms - mistakes or something else?
+		# Print problems to the terminal.
+		# They'll also be shown to the user.
+
+	# Not a HTTP POST, so we render our form using two ModelForm instances.
+	# These forms will be blank, ready for user input.
+	else:
+		user_form = UserForm()
+
+
+	# Render the template depending on the context.
+	return render(request,
+			'register.html',
+			{'user_form': user_form,'registered': registered} )

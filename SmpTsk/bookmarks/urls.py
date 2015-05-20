@@ -15,16 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import include, url
-from bkmks.views import main_page, login_page, user_login, profile_page, profile_overview, task_submission, deleter,adder,register
+from bkmks.views import deleter, main_page, profile_page, user_login, profile_overview, adder, task_submission,register
 from django.contrib.auth import logout
-from django.contrib.auth.views import logout
 from django.core.urlresolvers import reverse_lazy
-# from bkmks.views import main_page
+from django.conf import settings
+
 
 urlpatterns = [
 
-	# url(r'^$', main_page.as_view()),
 	url(r'^$', main_page, name = 'home'),
+	url(r'^static(?P<path>.*)$', 'django.views.static.serve', {
+	'document_root': settings.STATIC_ROOT}),
 	url(r'^login/$', user_login, name='login'),
     url(r'^admin/', include(admin.site.urls)),
           url(r'^logout/$', 'django.contrib.auth.views.logout',

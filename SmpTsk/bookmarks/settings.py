@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0d%)r75ofz_68fptgipxa=rv_&q)*o1ep)bmp)^#lb6h6e$v_d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -109,8 +109,7 @@ USE_TZ = True
 
 HOME_URL = '/'
 
-STATIC_ROOT = 'static-only'
-
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static', 'static-only')
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/login'

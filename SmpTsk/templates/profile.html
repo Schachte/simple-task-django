@@ -44,7 +44,7 @@
 
     #floater {
 
-      
+
       width: 100%;
       display: inline;
     }
@@ -99,8 +99,8 @@ function fade_out() {
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                
-       
+
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.username|title }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -108,7 +108,7 @@ function fade_out() {
                             <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
                         </li>
                         <li>
-                           
+
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
@@ -142,7 +142,7 @@ function fade_out() {
                         <a href="/logout"><i class="fa fa-fw fa-edit"></i> Logout </a>
                     </li>
 
-                    
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -158,9 +158,9 @@ function fade_out() {
                         <h1 class="page-header">
                             Simple Task <small>Overview for {{ user.username|title }}</small>
                         </h1>
-                      
 
-                       
+
+
 
                         <ol class="breadcrumb">
                             <li class="active">
@@ -172,10 +172,10 @@ function fade_out() {
                 <!-- /.row -->
 
                 <div class="row">
-                    
+
 
                             {% if tasks|length == 0 %}
-                                 
+
                             {% else %}
                             <div id = "fader">
                             <div class="col-lg-12">
@@ -214,21 +214,21 @@ function fade_out() {
                             </a>
 
                         </div>
-                                        
-                
+
+
                     </div>
 
-                    
+
                 </div>
 <h3>Quick-Add Task</h3>
 {% load crispy_forms_tags %}
-<form id="taskitem_form" method="post" action=""> 
+<form id="taskitem_form" method="post" action="">
 
-{% csrf_token %} 
+{% csrf_token %}
 
 {% crispy form %}
 
-</form> 
+</form>
 
                 <hr>
                     <div class="col-lg-4">
@@ -243,7 +243,7 @@ function fade_out() {
                                 {% endif %}
                                     {% for task in tasks2 %}
                                       <a href="#" class="list-group-item">
-                                        {{task}}<br><b><i>{{task.due_date}}</b></i>
+                                        {{task.taskn}}<br><b><i>{{task.due_date}}</b></i>
 
                                       </a>
                                       {% endfor %}
@@ -256,7 +256,7 @@ function fade_out() {
                     </div>
                     <div class="col-lg-4">
 
-                            
+
                     </div>
                 </div>
                 <!-- /.row -->

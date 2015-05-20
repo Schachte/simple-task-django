@@ -60,7 +60,7 @@
 
     #floater {
 
-      
+
       width: 100%;
       display: inline;
     }
@@ -69,7 +69,7 @@
         display: none;
     }
 
-    
+
     input {
 
         border-radius: 10px;
@@ -92,7 +92,7 @@
 
 $(document).ready(function() {
     $('#hidden').fadeIn(500);
-       
+
     $("#myTable").tableDnD();
 });
 
@@ -136,12 +136,12 @@ $(document).ready(function() {
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    
+
                     <ul class="dropdown-menu message-dropdown">
                         <li class="message-preview">
                             <a href="#">
                                 <div class="media">
-                                    
+
                                     </span>
                                     <div class="media-body">
                                         <h5 class="media-heading"><strong>{{ user.username|title }}</strong>
@@ -152,12 +152,12 @@ $(document).ready(function() {
                                 </div>
                             </a>
                         </li>
-           
+
                         <li class="message-preview">
                             <a href="#">
                                 <div class="media">
                                     <span class="pull-left">
-                                        
+
                                     </span>
                                     <div class="media-body">
                                         <h5 class="media-heading"><strong>{{ user.username|title }}</strong>
@@ -171,7 +171,7 @@ $(document).ready(function() {
 
                     </ul>
                 </li>
-       
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.username|title }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -179,7 +179,7 @@ $(document).ready(function() {
                             <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
                         </li>
                         <li>
-                           
+
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
@@ -212,7 +212,7 @@ $(document).ready(function() {
                         <a href="/logout"><i class="fa fa-fw fa-edit"></i> Logout </a>
                     </li>
 
-                    
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -228,17 +228,17 @@ $(document).ready(function() {
                         <h1 class="page-header">
                                 {% if tasks|length == 0 %}
                                   <h1>Your Task Inventory Is Empty, {{ user.username|title }}</h1>
-                                
+
                                 {% else %}
                             Simple Task <small>Overview for {{ user.username|title }} - Today's Date is {{time|date:"M d,"}} {{time|date:"Y"}}</small>
 
                         </h1>
-                        
+
 
                                 <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped" id = "myTable">
-                              
+
                                     <thead>
                                         <tr>
                                             <!-- <th>Task Entry #</th> -->
@@ -246,8 +246,8 @@ $(document).ready(function() {
                                             <th>Due Date</th>
                                             <th>Due Time</th>
                                             <th>Delete Task</th>
-                                 
-                                            
+
+
                                             <!-- <th>Date Due</th> -->
                                         </tr>
                                     </thead>
@@ -256,17 +256,17 @@ $(document).ready(function() {
                                     {% for task in tasks %}
                                         <tr>
                                             <!-- <td>{{ forloop.counter }}</td> -->
-                                            <td>{{task}}</td>
+                                            <td>{{task.taskn}}</td>
                                             <td>{{task.due_date}}</td>
                                             <td>{{task.due_time}}</td>
                                             <td><a href="/user/{{ user.username }}/delete/{{ task.pk }}">Remove</a></td>
- 
+
                                         {% endfor %}
                                         {% endfor %}
-                                   
+
                                     </tbody>
                                 </table>
-                         
+
                             </div>
                             <!-- /.table-responsive -->
                         </div>
@@ -275,7 +275,7 @@ $(document).ready(function() {
                     {% endif %}
                     <div class="col-lg-4">
 
-                            
+
                     </div>
                 </div>
                 <!-- /.row -->
